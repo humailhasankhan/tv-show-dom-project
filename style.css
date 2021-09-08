@@ -1,3 +1,50 @@
-#root {
-  color: red;
+body {
+  color: rgb(0, 0, 0);
+  font-size: 1.6rem;
+  background-color: rgb(230, 229, 229);
+}
+
+ul {
+  border: 1px solid rgb(225, 225, 225);
+  border-radius: 10px;
+  padding-inline-start: 0vmin;
+  background-color: white;
+}
+
+.episodes-container {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  column-gap: 15px;
+  margin: 10px;
+}
+
+li {
+  box-sizing: border-box;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  padding: 5px;
+  width: auto;
+}
+.episode-names {
+  border: 1px solid rgb(199, 199, 199);
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+img {
+  max-width: 100%;
+  padding: 20px;
+}
+
+.episode-summary {
+  color: rgb(82, 82, 82);
+}
+@media screen and (min-width: 720px) {
+  .episodes-container {
+    grid-template-columns: auto auto auto;
+    column-gap: 15px;
+  }
 }
