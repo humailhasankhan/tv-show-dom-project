@@ -2,42 +2,41 @@
 function setup() {
   const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
+  const searchBar = document.getElementById("search");
+  searchBar.addEventListener("keyup", (event) => {
+    makePageForEpisodes(allEpisodes, event.target.value);
+  });
 }
 
-function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
-  rootElem.textContent = `${episodeList.length} episodes of Game of Thrones`;
-  const displayArea = document.createElement("div");
-  displayArea.className = "episodes-container";
-  rootElem.appendChild(displayArea);
-  const footer = document.createElement("footer");
-  rootElem.appendChild(footer);
-  const footerDiv = document.createElement("div");
-  footer.appendChild(footerDiv);
-  const footerCopyRightParagraph = document.createElement("p");
-  footerDiv.appendChild(footerCopyRightParagraph);
-  footerCopyRightParagraph.innerHTML =
-    "<a href='https://www.tvmaze.com/'>© TVMaze.com</a>";
-  episodeList.map((episode) => {
-    const allEpisodeList = document.createElement("ul");
-    const episodeNames = document.createElement("li");
-    episodeNames.className = "episode-names";
-    const episodeImageListItem = document.createElement("li");
-    const episodeImage = document.createElement("img");
-    const episodeSummary = document.createElement("li");
-    episodeSummary.className = "episode-summary";
+function episodeIsIncluded(episode, searchBarValue) {
+  if (searchBarValue === undefined) {
+    return true;
+  }
+  return (
+    episode.name.toLowerCase().includes(searchBarValue.toLowerCase()) ||
+    episode.summary.toLowerCase().includes(searchBarValue.toLowerCase())
+  );
+}
+
+function makePageForEpisodes(episodeList, searchBarValue) {
+  const container = document.getElementById("episodes-container");
+  container.innerHTML = "";
+  let episodeCounter = 0;
+  episodeList.forEach((episode) => {
+    if (!episodeIsIncluded(episode, searchBarValue)) return;
+    const episodeCard = document.createElement("ul");
     const season = ("0" + episode.season).slice(-2);
     const episodeNumbers = ("0" + episode.number).slice(-2);
-    episodeNames.innerHTML = `${episode.name} - S${season}E${episodeNumbers}`;
-    episodeImage.src = episode.image.medium;
-    episodeImage.alt = "episode thumbnails";
-    episodeSummary.innerHTML = episode.summary;
-    episodeImageListItem.appendChild(episodeImage);
-    allEpisodeList.appendChild(episodeNames);
-    allEpisodeList.appendChild(episodeImageListItem);
-    allEpisodeList.appendChild(episodeSummary);
-    displayArea.appendChild(allEpisodeList);
+    episodeCard.innerHTML = `
+<li class ="episode-names">${episode.name} - S${season}E${episodeNumbers}</li>
+<li><img src="${episode.image.medium}" alt="episode thumbnails"</li>
+<li class="episode-summary">${episode.summary}</li>
+`;
+    episodeCounter = episodeCounter + 1;
+    container.appendChild(episodeCard);
   });
+  const heading = document.getElementById("heading");
+  heading.innerHTML = `${episodeCounter}/${episodeList.length} episodes of Game of Thrones`;
 }
 
 window.onload = setup;
