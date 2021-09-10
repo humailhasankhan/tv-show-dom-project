@@ -4,11 +4,17 @@ body {
   background-color: rgb(230, 229, 229);
 }
 
+#heading {
+  font-size: 0.9rem;
+  color: rgb(88, 88, 88);
+}
+
 ul {
   border: 1px solid rgb(225, 225, 225);
   border-radius: 10px;
   padding-inline-start: 0vmin;
   background-color: white;
+  max-width: 400px;
 }
 
 #episodes-container {
@@ -43,6 +49,17 @@ img {
   color: rgb(82, 82, 82);
 }
 @media screen and (min-width: 720px) {
+  #search-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  #search {
+    margin-left: 25px;
+    margin-right: 40px;
+  }
+
   #episodes-container {
     grid-template-columns: auto auto auto;
     column-gap: 15px;
