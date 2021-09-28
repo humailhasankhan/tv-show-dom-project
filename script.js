@@ -1,12 +1,18 @@
 //You can edit ALL of the code here
+const selector = document.getElementById("episode-selector");
+const container = document.getElementById("episodes-container");
+const searchBar = document.getElementById("search");
 function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+  const allShows = getAllShows().sort((firstElement, secondElement) =>
+    firstElement.name.localeCompare(secondElement.name)
+  );
+  selector.style.visibility = "hidden";
+  makePageForShows(allShows);
 
-  const searchBar = document.getElementById("search");
-  searchBar.addEventListener("keyup", (event) => {
-    makePageForEpisodes(allEpisodes, event.target.value);
-  });
+  // const searchBar = document.getElementById("search");
+  // searchBar.addEventListener("keyup", (event) => {
+  //   makePageForEpisodes(allShows, event.target.value);
+  // });
 }
 
 function episodeIsIncluded(episode, searchBarValue) {
@@ -19,9 +25,51 @@ function episodeIsIncluded(episode, searchBarValue) {
   );
 }
 
+function makePageForShows(showsList) {
+  const showSelector = document.getElementById("show-selector");
+  showsList.forEach((show) => {
+    const showOption = document.createElement("option");
+    const showId = (showOption.value = show.id);
+
+    showOption.innerHTML = show.name;
+
+    showSelector.appendChild(showOption);
+    showSelector.addEventListener("change", selectedShow);
+    function selectedShow() {
+      if (
+        showSelector.options[showSelector.selectedIndex].innerText.includes(
+          show.name
+        )
+      ) {
+        fetch(`https://api.tvmaze.com/shows/${showId}/episodes`)
+          .then((response) => response.json())
+          .then((allEpisodes) => {
+            console.log(allEpisodes);
+            selector.innerHTML = "<option value ''>--select episode--</option>";
+            selector.value = "";
+            makePageForEpisodes(allEpisodes);
+
+            searchBar.addEventListener("keyup", (event) => {
+              makePageForEpisodes(allEpisodes, event.target.value);
+            });
+            selector.style.visibility = "visible";
+          });
+      } else if (
+        this.value === "" ||
+        this.value === "null" ||
+        this.value === undefined
+      ) {
+        selector.value = "";
+        selector.style.visibility = "hidden";
+        container.innerHTML = "";
+
+        displayEpisode(-1);
+      }
+    }
+  });
+}
+
 function makePageForEpisodes(episodeList, searchBarValue) {
-  const container = document.getElementById("episodes-container");
-  const searchBar = document.getElementById("search");
   container.innerHTML = "";
   let episodeCounter = 0;
   episodeList.forEach((episode) => {
@@ -58,6 +106,7 @@ function makePageForEpisodes(episodeList, searchBarValue) {
     }
     if (!episodeIsIncluded(episode, searchBarValue)) return;
     function populateEpisode() {
+      episodeCard.innerHTML = "";
       episodeCard.innerHTML = `
 <li class ="episode-names">${episode.name} - S${season}E${episodeNumbers}</li>
 <li><img src="${episode.image.medium}" alt="episode thumbnails"</li>

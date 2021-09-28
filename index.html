@@ -11,9 +11,13 @@
   <body>
     <div id="root">
       <div id="search-container">
+        <select name="show" id="show-selector">
+          <option value="">--select show--</option>
+        </select>
         <select name="episodes" id="episode-selector">
           <option value="">--select episode--</option>
         </select>
+
         <input type="text" id="search" name="search" placeholder="search..." />
         <p id="heading"></p>
       </div>
@@ -22,6 +26,7 @@
         <a href="https://www.tvmaze.com/">© TVMaze.com</a>
       </footer>
     </div>
+    <script src="shows.js"></script>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
