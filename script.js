@@ -46,6 +46,7 @@ function makePageForShows(showsList) {
         )
       ) {
         searchBar.style.visibility = "visible";
+        searchBar.value = "";
         selector.innerHTML = "";
         selector.innerHTML = "<option value ''>--select episode--</option>";
         selector.value = "";
@@ -56,9 +57,6 @@ function makePageForShows(showsList) {
             allEpisodes = data;
             makePageForEpisodes(allEpisodes);
             selector.style.visibility = "visible";
-            searchBar.addEventListener("keyup", (event) => {
-              makePageForEpisodes(allEpisodes, event.target.value);
-            });
           })
           .catch((error) => console.log("Error:", error));
       } else if (
@@ -71,6 +69,17 @@ function makePageForShows(showsList) {
       }
     }
   });
+}
+
+searchBar.addEventListener("keyup", (event) => {
+  episodeCounter = 0;
+  makePageForEpisodes(allEpisodes, event.target.value);
+  displayEpisode();
+});
+
+function displayEpisode() {
+  const heading = document.getElementById("heading");
+  heading.innerHTML = `Displaying ${episodeCounter}/${allEpisodes.length}`;
 }
 
 function renderEpisode(episode, searchBarValue) {
@@ -93,8 +102,14 @@ function renderEpisode(episode, searchBarValue) {
 `;
   if (!episodeIsIncluded(episode, searchBarValue)) {
     episodeCard.style.display = "none";
+    if (episodeCard.style.display === "none") {
+      episodeCounter--;
+    }
+    displayEpisode();
   }
+
   episodeCounter = episodeCounter + 1;
+  displayEpisode();
   container.appendChild(episodeCard);
 }
 
@@ -104,38 +119,32 @@ function makePageForEpisodes(episodeList, searchBarValue) {
   episodeList.forEach((episode) => {
     renderEpisode(episode, searchBarValue);
   });
+}
+selector.addEventListener("change", selectedEpisode);
+function selectedEpisode(event) {
+  if (event.target.value) {
+    episodeCounter = 0;
+    const allEpisodeCards = document.querySelectorAll(".all-episode-cards");
+    allEpisodeCards.forEach((episodeCard) => {
+      episodeCard.style.display = "none";
+    });
+    episodeCounter = episodeCounter + 1;
+    searchBar.style.visibility = "hidden";
+    searchBar.value = "";
+    const chosenEpisodeCard = document.getElementById(`${event.target.value}`);
+    chosenEpisodeCard.style.display = "initial";
+    displayEpisode();
+  } else {
+    episodeCounter = 0;
+    const allEpisodeCards = document.querySelectorAll(".all-episode-cards");
+    allEpisodeCards.forEach((episodeCard) => {
+      episodeCard.style.display = "initial";
+      episodeCounter = episodeCounter + 1;
+    });
 
-  selector.addEventListener("change", selectedEpisode);
-  function selectedEpisode(event) {
-    if (event.target.value) {
-      const allEpisodeCards = document.querySelectorAll(".all-episode-cards");
-      allEpisodeCards.forEach((episodeCard) => {
-        episodeCard.style.display = "none";
-      });
-      searchBar.style.visibility = "hidden";
-      searchBar.value = "";
-      const chosenEpisodeCard = document.getElementById(
-        `${event.target.value}`
-      );
-      chosenEpisodeCard.style.display = "initial";
-      displayEpisode(0);
-    } else {
-      const allEpisodeCards = document.querySelectorAll(".all-episode-cards");
-      allEpisodeCards.forEach((episodeCard) => {
-        episodeCard.style.display = "initial";
-      });
-      searchBar.style.visibility = "visible";
-      displayEpisode(0);
-    }
+    searchBar.style.visibility = "visible";
+    displayEpisode();
   }
-
-  function displayEpisode(number) {
-    const heading = document.getElementById("heading");
-    heading.innerHTML = `Displaying ${episodeCounter + number}/${
-      episodeList.length
-    } episodes`;
-  }
-  displayEpisode(0);
 }
 
 window.onload = setup;
