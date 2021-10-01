@@ -177,6 +177,7 @@ a:visited {
     grid-area: genre;
     border-left: 4px solid rgb(254, 50, 50);
     padding-left: 10px;
+    padding-right: 10px;
   }
   .show-status {
     grid-area: status;
@@ -195,6 +196,8 @@ a:visited {
   }
   .show-cards {
     display: grid;
+    max-width: 100%;
+    box-sizing: border-box;
     grid-template-columns: 150px 30px 150px 150px 30px 150px;
     grid-template-rows: auto;
     margin: 10px;
@@ -229,6 +232,7 @@ a:visited {
 @media screen and (min-width: 1024px) {
   .show-cards {
     font-size: 0.8em;
-    grid-template-columns: 250px 30px 200px 200px 30px 250px;
+    max-width: 100%;
+    grid-template-columns: auto 30px auto auto 30px auto;
   }
 }
