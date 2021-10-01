@@ -1,22 +1,106 @@
+* {
+  overflow-x: hidden;
+}
+
 body {
-  color: rgb(0, 0, 0);
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: rgb(240, 237, 237);
   font-size: 1.6rem;
-  background-color: rgb(230, 229, 229);
+  background-color: rgb(36, 36, 36);
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0px;
+}
+
+#search-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  color: rgb(0, 0, 0);
+}
+
+#show-selector,
+#show-search,
+#episode-selector,
+#search,
+#back-button {
+  margin: 3px 0px 2px 5px;
+  max-width: 95%;
+  max-height: 40px;
+  background-color: rgb(36, 36, 36);
+  color: rgb(240, 237, 237);
+  border: rgb(240, 50, 37) 2px solid;
+}
+#show-selector:hover,
+#episode-selector:hover,
+#back-button:hover {
+  background-color: rgb(245, 88, 77);
+  border: rgb(240, 50, 37) 2px solid;
+  font-weight: bolder;
+  color: rgb(255, 255, 255);
+}
+
+::placeholder {
+  color: rgb(240, 237, 237);
+  opacity: 1;
+}
+
+#nav-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-bottom: 10px;
+  width: auto;
 }
 
 #heading {
-  font-size: 0.9rem;
-  color: rgb(88, 88, 88);
+  font-size: 1.5rem;
+  color: rgb(240, 237, 237);
 }
 
-#show-name {
+#shows-container {
+  margin-top: 20px;
+}
+
+.show-cards {
+  box-sizing: border-box;
+  border: rgb(254, 50, 50) 2px solid;
+  padding-bottom: 30px;
+  padding-top: 30px;
+  margin: 2px;
+  width: auto;
+  list-style: none;
+  padding-inline-start: 10px;
+  padding-inline-end: 5px;
+}
+
+.show-name {
+  font-size: 1em;
+  font-weight: bolder;
+  color: rgb(255, 255, 255);
+  margin: 0px 5px 30px 5px;
+  padding-right: 2px;
+  border: rgb(254, 50, 50) 2px solid;
+  background-color: rgb(36, 36, 36);
+}
+
+.show-name:hover {
+  background-color: rgb(245, 88, 77);
+}
+
+#show-list-items {
+  text-align: justify;
+  padding-bottom: 5px;
+  margin-left: 0px;
 }
 
 .all-episode-cards {
-  border: 1px solid rgb(225, 225, 225);
-  border-radius: 10px;
+  border: 2px solid rgb(254, 50, 50);
+  border-radius: 5px;
   padding-inline-start: 0vmin;
-  background-color: white;
+  background-color: rgb(36, 36, 36);
   max-width: 400px;
 }
 
@@ -38,25 +122,97 @@ body {
   width: auto;
 }
 #episode-names {
-  border: 1px solid rgb(199, 199, 199);
-  border-radius: 10px;
+  border: 4px solid rgb(254, 50, 50);
+  border-radius: 2px;
   font-weight: bold;
   list-style: none;
+  color: rgb(255, 255, 255);
 }
 
 img {
   max-width: 100%;
-  padding: 20px;
+  padding: 5px;
 }
 
 #episode-summary {
-  color: rgb(82, 82, 82);
+  color: rgb(240, 237, 237);
 }
+
+a {
+  color: rgb(240, 237, 237);
+}
+a:visited {
+  color: rgb(202, 249, 249);
+}
+
 @media screen and (min-width: 720px) {
   #search-container {
     display: flex;
+    width: 100%;
     flex-direction: row;
     justify-content: flex-start;
+  }
+
+  #nav-container {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+  }
+
+  .show-name {
+    grid-area: title;
+    width: auto;
+    padding: 10px 100px 5px 5px;
+  }
+  .show-image {
+    grid-area: image;
+    align-items: center;
+  }
+  .show-summary {
+    grid-area: summary;
+    align-items: center;
+  }
+  .show-genres {
+    grid-area: genre;
+    border-left: 4px solid rgb(254, 50, 50);
+    padding-left: 10px;
+  }
+  .show-status {
+    grid-area: status;
+    border-left: 4px solid rgb(254, 50, 50);
+    padding-left: 10px;
+  }
+  .show-rating {
+    grid-area: rating;
+    border-left: 4px solid rgb(254, 50, 50);
+    padding-left: 10px;
+  }
+  .show-runtime {
+    grid-area: runtime;
+    border-left: 4px solid rgb(254, 50, 50);
+    padding-left: 10px;
+  }
+  .show-cards {
+    display: grid;
+    grid-template-columns: 150px 30px 150px 150px 30px 150px;
+    grid-template-rows: auto;
+    margin: 10px;
+    font-size: 0.6em;
+    grid-template-areas:
+      "title title title title title tile"
+      "image . summary summary . genre"
+      "image . summary summary . status"
+      "image . summary summary . rating"
+      "image . summary summary . runtime";
+  }
+
+  #heading-container {
+    margin-right: 50px;
+  }
+
+  #button-container {
+    margin-left: 20px;
   }
 
   #search {
@@ -67,5 +223,12 @@ img {
   #episodes-container {
     grid-template-columns: auto auto auto;
     column-gap: 15px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .show-cards {
+    font-size: 0.8em;
+    grid-template-columns: 250px 30px 200px 200px 30px 250px;
   }
 }

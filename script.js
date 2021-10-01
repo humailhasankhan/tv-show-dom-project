@@ -50,26 +50,31 @@ function renderShowListing(show) {
   const showName = document.createElement("li");
   showName.className = "show-name";
   const showImage = document.createElement("li");
+  showImage.className = "show-image";
   const showSummary = document.createElement("li");
+  showSummary.className = "show-summary";
   const showGenres = document.createElement("li");
+  showGenres.className = "show-genres";
   const showStatus = document.createElement("li");
+  showStatus.className = "show-status";
   const showRating = document.createElement("li");
+  showRating.className = "show-rating";
   const showRuntime = document.createElement("li");
+  showRuntime.className = "show-runtime";
   showName.innerText = `${show.name}`;
   if (show.image === null) {
-    showImage.innerHTML = `<li class="show-list"><img src="https://www.escapeauthority.com/wp-content/uploads/2116/11/No-image-found.jpg" alt = show poster"></li>`;
+    showImage.innerHTML = `<img src="https://www.escapeauthority.com/wp-content/uploads/2116/11/No-image-found.jpg" alt = show poster">`;
   } else {
-    showImage.innerHTML = `<li class="show-list"><img src="${show.image.medium}" alt = show poster"></li>`;
+    showImage.innerHTML = `<img src="${show.image.medium}" alt = show poster">`;
   }
-  showSummary.innerHTML = `<li>${show.summary}</li>`;
+  showSummary.innerHTML = `${show.summary}`;
   showGenres.innerText = `Genres: ${show.genres
     .toString()
     .replace(/,/g, " | ")}`;
-  showStatus.innerHTML = `<li class="show-list">Status: ${show.status}</li>`;
-  showRating.innerHTML = `<li class="show-list">Rated: ${show.rating.average}</li>`;
-  showRuntime.innerHTML = `<li class="show-list">Runtime: ${show.runtime} minutes</li>`;
+  showStatus.innerHTML = `Status: ${show.status}`;
+  showRating.innerHTML = `Rated: ${show.rating.average}`;
+  showRuntime.innerHTML = `Runtime: ${show.runtime} minutes`;
 
-  showContainer.appendChild(showCard);
   showCard.appendChild(showName);
   showCard.appendChild(showImage);
   showCard.appendChild(showSummary);
@@ -77,6 +82,7 @@ function renderShowListing(show) {
   showCard.appendChild(showStatus);
   showCard.appendChild(showRating);
   showCard.appendChild(showRuntime);
+  showContainer.appendChild(showCard);
 
   showName.addEventListener("click", getEpisodes);
 }
@@ -152,6 +158,7 @@ function episodeIsIncluded(episode, searchBarValue) {
 function makeShowDropDownList(showsList) {
   showsList.forEach((show) => {
     const showOption = document.createElement("option");
+    showOption.className = "show-options";
     const showId = (showOption.value = show.id);
 
     showOption.innerHTML = show.name;
