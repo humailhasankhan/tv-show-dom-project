@@ -9,7 +9,10 @@ body {
   color: rgb(88, 88, 88);
 }
 
-ul {
+#show-name {
+}
+
+.all-episode-cards {
   border: 1px solid rgb(225, 225, 225);
   border-radius: 10px;
   padding-inline-start: 0vmin;
@@ -25,7 +28,7 @@ ul {
   margin: 10px;
 }
 
-li {
+.episode-list {
   box-sizing: border-box;
   list-style: none;
   display: flex;
@@ -34,10 +37,11 @@ li {
   padding: 5px;
   width: auto;
 }
-.episode-names {
+#episode-names {
   border: 1px solid rgb(199, 199, 199);
   border-radius: 10px;
   font-weight: bold;
+  list-style: none;
 }
 
 img {
@@ -45,7 +49,7 @@ img {
   padding: 20px;
 }
 
-.episode-summary {
+#episode-summary {
   color: rgb(82, 82, 82);
 }
 @media screen and (min-width: 720px) {
