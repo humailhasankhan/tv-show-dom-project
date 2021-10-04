@@ -263,7 +263,7 @@ function selectedEpisode(event) {
       episodeCard.style.display = "none";
     });
     counter = counter + 1;
-    searchBar.style.visibility = "hidden";
+    searchBar.style.display = "none";
     searchBar.value = "";
     const chosenEpisodeCard = document.getElementById(`${event.target.value}`);
     chosenEpisodeCard.style.display = "initial";
@@ -273,6 +273,8 @@ function selectedEpisode(event) {
     const allEpisodeCards = document.querySelectorAll(".all-episode-cards");
     allEpisodeCards.forEach((episodeCard) => {
       episodeCard.style.display = "initial";
+      searchBar.style.display = "initial";
+      searchBar.value = "";
       counter = counter + 1;
     });
 
