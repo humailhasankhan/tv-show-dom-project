@@ -3,14 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+    <title>TV Show Project | Humail Khan (humailhasankhan)</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
     <div id="root">
+      <div id="search-container">
+        <select name="show" id="show-selector">
+          <option value="">--select show--</option>
+        </select>
+        <input
+          type="text"
+          id="show-search"
+          name="show-search"
+          placeholder="search..."
+        />
+        <select name="episodes" id="episode-selector">
+          <option value="">--select episode--</option>
+        </select>
+
+        <input type="text" id="search" name="search" placeholder="search..." />
+      </div>
+      <div id="nav-container">
+        <div id="heading-container">
+          <p id="heading"></p>
+        </div>
+        <div id="button-container">
+          <button id="back-button">Main Page</button>
+        </div>
+      </div>
+      <div id="shows-container"></div>
+      <div id="episodes-container"></div>
+      <footer>
+        <a href="https://www.tvmaze.com/">© TVMaze.com</a>
+      </footer>
     </div>
+    <script src="shows.js"></script>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
